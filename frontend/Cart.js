@@ -1,12 +1,12 @@
 class Cart {
   constructor() {
     //Soit il y a déjà qqch dans le panier, soit il est vide egal à this.items :
-    // if (JSON.parse(localStorage.getItem("cart"))) {
+    // if (JSON.parse(localStorage.getItem("products"))) {
     //   this.items = JSON.parse(localStorage.getItem("cart"));
     // } else {
     //   this.items = [];
     // }
-    this.items = JSON.parse(localStorage.getItem("cart")) || [];
+    this.items = JSON.parse(localStorage.getItem("products")) || [];
   }
 
   getItems() {
@@ -39,6 +39,6 @@ class Cart {
 
   save() {
     // fonction to save the cart back to localStorage
-    localStorage.setItem("cart", JSON.stringify(this.items));
+    localStorage.setItem("products", JSON.stringify(this.items));
   }
 }

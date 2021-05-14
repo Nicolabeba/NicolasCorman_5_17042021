@@ -88,11 +88,7 @@
 
     <section
       class="panier d-flex align-items-center flex-wrap justify-content-around"
-    >
-      <button id="btn" class="btn btn-primary" type="submit" name="commander">
-        Valider le panier
-      </button>
-    </section>
+    ></section>
 
     <form class="buy-form">
       <h5><br />Informations <br /></h5>
@@ -105,6 +101,7 @@
             id="firstName"
             placeholder="John"
           />
+          <small></small>
         </div>
         <div class="form-group col-md-6">
           <label for="lastName">Nom</label>
@@ -114,41 +111,48 @@
             id="lastName"
             placeholder="Difool"
           />
+          <small></small>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="inputEmail">adresse Email </label>
+        <label for="email">adresse Email </label>
         <input
           type="email"
           class="form-control"
-          id="inputEmail"
+          id="email"
           placeholder="name@example.com"
         />
+        <small></small>
       </div>
       <div class="form-group">
-        <label for="inputAddress">Adresse</label>
+        <label for="address">Adresse</label>
         <input
           type="text"
           class="form-control"
-          id="inputAddress"
+          id="address"
           placeholder="34 rue ..."
         />
+        <small></small>
       </div>
       <div class="form-row">
         <div class="form-group col-md-5">
-          <label for="inputZip">Code postal</label>
-          <input type="text" class="form-control" id="inputZip" />
+          <label for="zip">Code postal</label>
+          <input type="text" class="form-control" id="zip" />
+          <small></small>
         </div>
         <div class="form-group col-md-7">
-          <label for="inputCity">Ville</label>
-          <input type="text" class="form-control" id="inputCity" />
+          <label for="city">Ville</label>
+          <input type="text" class="form-control" id="city" />
+          <small></small>
         </div>
       </div>
       <div class="form-group">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" id="gridCheck" />
-          <label class="form-check-label" for="gridCheck"> Check me out </label>
+          <label class="form-check-label" for="gridCheck">
+            Accepter les conditions
+          </label>
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Valider la commande</button>
@@ -184,6 +188,7 @@
     <script src="frontend/Teddy.js"></script>
     <script src="frontend/api.js"></script>
     <script src="frontend/Cart.js"></script>
+    <script src="frontend/Contact.js"></script>
     <script src="frontend/panier.js"></script>
   </body>
 </html>
