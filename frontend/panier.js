@@ -147,7 +147,7 @@ document.querySelector(".btn-primary").addEventListener("click", (e) => {
     let contact = new Contact();
     localStorage.setItem("contact", JSON.stringify(contact));
   } else {
-    window.alert("Un des champs du formulaire n'a pas été bien rempli!");
+    window.alert("Un des champs du formulaire n'a pas été bien rempli !");
   }
 });
 
