@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+      integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="frontend/style.css" />
+    <title>Orinoco</title>
+    <meta name="description" content="Orinoco vend des Nounours" />
+  </head>
+
+  <body>
+    <header>
+      <nav
+        class="
+          navbar navbar-expand-md navbar-light
+          bg-light
+          d-flex
+          justify-content-between
+        "
+      >
+        <a class="navbar-brand" href="frontend/index.html">Orinoco</a>
+
+        <div
+          class="navbar navbar-expand-md navbar-light bg-light"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav d-flex flex-row justify-content-between">
+            <li class="nav-item active"></li>
+            <li class="nav-item">
+              <a class="nav-link" href="frontend/index.html">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="frontend/panier.html">Panier</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <section class="title">
+      <h1>Orinoco</h1>
+      <p>Les ours en peluche</p>
+    </section>
+
+    <section
+      class="
+        showRoom
+        d-flex
+        align-items-center
+        flex-wrap
+        justify-content-around
+      "
+    >
+      <div class="card" style="width: 80%">
+        <img id="image-url" src="" />
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between">
+            <h5 class="card-title"></h5>
+            <p class="price"></p>
+          </div>
+          <p class="card-text"></p>
+
+          <form class="d-flex align-items-center justify-content-between">
+            <select name="color-option" id="color-option"></select>
+            <button
+              id="btn"
+              class="btn btn-primary"
+              type="submit"
+              name="commander"
+            >
+              Ajouter au panier
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-light text-center text-lg-start">
+      <!-- Grid container -->
+      <div class="container p-2">
+        <h5 class="text-uppercase">Orinours</h5>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+      </div>
+      <!-- Grid container -->
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        © 2020 Copyright:
+        <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+        
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="frontend/Teddy.js"></script>
+    <script src="frontend/api.js"></script>
+    <script src="frontend/Cart.js"></script>
+    <script src="frontend/produit.js"></script>
+  </body>
+</html>

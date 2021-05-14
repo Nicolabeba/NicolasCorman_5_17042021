@@ -1,0 +1,71 @@
+a:hover {
+  text-decoration: none;
+}
+
+th,
+td {
+  padding-right: 0 !important;
+}
+
+.nav-item {
+  padding-left: 10px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  margin: auto;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+  height: max-content;
+}
+
+.product-click {
+  color: black !important;
+}
+
+.card-text {
+  margin-bottom: 0.8rem !important;
+  text-decoration: none !important;
+}
+
+.col-lg-6 {
+  margin: auto;
+}
+
+.showRoom {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position-x: center;
+}
+
+footer {
+  margin-top: 20px;
+}
+
+.panier {
+  font-weight: 700;
+  font-style: italic;
+  color: rgb(0, 183, 255);
+}
+
+.btn-supp,
+.total-price {
+  padding-right: 10% !important;
+}
+
+.buy-form {
+  width: 60%;
+  margin: auto;
+}
