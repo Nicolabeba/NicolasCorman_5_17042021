@@ -10,7 +10,7 @@ class Contact {
     this.lastName = document.querySelector("#lastName").value;
     this.email = document.querySelector("#email").value;
     this.address = document.querySelector("#address").value;
-    this.zip = document.querySelector("#zip").value;
+    //this.zip = document.querySelector("#zip").value;
     this.city = document.querySelector("#city").value;
   }
 

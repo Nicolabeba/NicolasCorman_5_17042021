@@ -5,19 +5,6 @@ const id = new URLSearchParams(queryStringId).get("name");
 
 getTeddy(id);
 
-//Fonction fenêtre pop-up
-const popUpConfirmation = (teddy) => {
-  if (
-    window.confirm(
-      `${teddy.name} avec sa couleur ${teddy.selectedColor} a bien été ajouté au panier. Appuyez sur OK pour consulter le panier, ou sur ANNULER pour revenir à l'accueil.`
-    )
-  ) {
-    window.location.href = "frontend/panier.html";
-  } else {
-    window.location.href = "frontend/index.html";
-  }
-};
-
 //Fonction HandleGetTeddy qui récupère mon teddy:
 let handleGetTeddy = (teddy) => {
   document.getElementById("image-url").setAttribute("src", `${teddy.imageUrl}`);
@@ -38,14 +25,20 @@ let handleGetTeddy = (teddy) => {
 
   document.getElementById("btn").addEventListener("click", (e) => {
     e.preventDefault();
-
     let selectedTeddy = teddy;
     selectedTeddy.selectedColor = document.querySelector("#color-option").value;
-    console.log(selectedTeddy);
-    // -----------------Local Storage---------------
-    let cart = new Cart();
-    cart.addItem(selectedTeddy);
-    //cart.getNewQuantity(selectedTeddy);
-    popUpConfirmation(teddy);
+    // -----------------Local Storage et popUp confirmation---------------
+    if (!teddy.selectedColor) {
+      window.alert("Vous n'avez pas choisi la couleur.");
+    } else {
+      if (
+        window.confirm(
+          `Etes vous sûr de vouloir ajouter ${teddy.name} avec sa couleur ${selectedTeddy.selectedColor} au panier?`
+        )
+      ) {
+        let cart = new Cart();
+        cart.addItem(selectedTeddy);
+      }
+    }
   });
 };

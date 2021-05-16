@@ -1,5 +1,6 @@
 "use strict";
 let cart = new Cart();
+let totalValue = 0;
 
 let showCart = (cart) => {
   if (JSON.parse(localStorage.getItem("products")) === null) {
@@ -15,7 +16,7 @@ let showCart = (cart) => {
     //   myBtn.addEventListener("click", () => {});
     //   myDiv.appendChild(myBtn);
     //   cartSection.appendChild(myDiv);
-    let totalValue = 0;
+
     let productInPanier = [];
     for (let j = 0; j < cart.items.length; j++) {
       productInPanier += `
@@ -32,6 +33,8 @@ let showCart = (cart) => {
 
       totalValue += cart.items[j].price / 100;
     }
+    //Afficher Total price
+    document.querySelector(".total-price").innerHTML = totalValue + " " + "€";
     //afficher les produits du panier
     document.querySelector(".row-product").innerHTML = productInPanier;
 
@@ -44,20 +47,14 @@ let showCart = (cart) => {
         window.location.href = "frontend/panier.html";
       });
     }
-
-    //Afficher Total price et bouton vider Tout le panier
-    document.querySelector(".total-price").innerHTML =
-      totalValue +
-      ` €&emsp;<button id="btn-vider"><i class="fas fa-trash"></i></button>`;
   }
 };
 showCart(cart);
-
+//localStorage.removeItem("products");
 //AddEvent bouton vider
-document.querySelector("#btn-vider").addEventListener("click", () => {
-  localStorage.removeItem("products");
-  window.location.href = "frontend/panier.html";
-});
+// document.querySelector("#btn-vider").addEventListener("click", () => {
+//   window.location.href = "frontend/panier.html";
+// });
 
 //---------------Le formulaire-----------
 
@@ -132,7 +129,7 @@ city.addEventListener("change", function (e) {
   }
 });
 
-//Envoyer mes données au localStorage
+//Envoyer mes données au localStorage et à mon API avec postTeddy() !
 document.querySelector(".btn-primary").addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
@@ -146,6 +143,8 @@ document.querySelector(".btn-primary").addEventListener("click", (e) => {
   ) {
     let contact = new Contact();
     localStorage.setItem("contact", JSON.stringify(contact));
+    //localStorage.setItem("totalPrice", JSON.stringify(totalValue));
+    postTeddy();
   } else {
     window.alert("Un des champs du formulaire n'a pas été bien rempli !");
   }
