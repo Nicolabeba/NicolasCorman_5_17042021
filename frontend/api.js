@@ -16,14 +16,7 @@ const getTeddy = (id) => {
     });
 };
 
-const postTeddy = () => {
-  let products = [];
-  let cartCommand = new Cart();
-  for (let item of cartCommand.items) {
-    products.push(item.id);
-  }
-
-  let contact = JSON.parse(localStorage.getItem("contact"));
+const postTeddy = (contact, products) => {
   let dataSubmit = JSON.stringify({ products, contact });
   fetch("http://127.0.0.1:3000/api/teddies/order", {
     method: "POST",

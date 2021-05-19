@@ -5,18 +5,11 @@ let totalValue = 0;
 let showCart = (cart) => {
   if (JSON.parse(localStorage.getItem("products")) === null) {
     document.querySelector(".table").classList.add("d-none");
+    document.querySelector(".buy-form").classList.add("d-none");
     document.querySelector(".panier").innerHTML = `
     <div>Le panier est vide</div>
   `;
   } else {
-    // Une autre méthode possible d'Adrien pour avoir aucun literal template :
-    //   let myDiv = document.createElement("div");
-    //   myDiv.className("decorateMyDiv");
-    //   let myBtn = document.createElement("button");
-    //   myBtn.addEventListener("click", () => {});
-    //   myDiv.appendChild(myBtn);
-    //   cartSection.appendChild(myDiv);
-
     let productInPanier = [];
     for (let j = 0; j < cart.items.length; j++) {
       productInPanier += `
@@ -43,108 +36,74 @@ let showCart = (cart) => {
     for (let k = 0; k < btnSupprimers.length; k++) {
       btnSupprimers[k].addEventListener("click", (k) => {
         cart.removeTeddy(k);
-        cart.save();
+        if (cart.items == 0) {
+          localStorage.removeItem("products");
+        } else {
+          cart.save();
+        }
         window.location.href = "frontend/panier.html";
       });
     }
   }
 };
 showCart(cart);
-//localStorage.removeItem("products");
-//AddEvent bouton vider
-// document.querySelector("#btn-vider").addEventListener("click", () => {
-//   window.location.href = "frontend/panier.html";
-// });
 
 //---------------Le formulaire-----------
 
 //STOCKER MES DONNEES DANS UN OBJET
 let contactFormValidation = new Contact();
-
 //Valider mes champs formulaire/contact
 
-let firstName = document.querySelector("#firstName");
-firstName.addEventListener("change", function (e) {
-  e.preventDefault();
-  e.stopPropagation();
-  if (contactFormValidation.validFirstLastNameCity(firstName)) {
-    firstName.nextElementSibling.innerHTML = "";
-  } else {
-    firstName.nextElementSibling.innerHTML = "Prénom invalide";
-  }
-});
+let validField = (key, fct) => {
+  const field = document.querySelector(`#${key}`);
+  field.addEventListener("change", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (fct(e.currentTarget.value)) {
+      field.nextElementSibling.innerHTML = "";
+      localStorage.setItem(key, e.currentTarget.value);
+    } else {
+      let fieldTitle = field.previousElementSibling.textContent;
+      field.nextElementSibling.innerHTML = fieldTitle + " invalide";
+    }
+  });
+};
+validField("firstName", contactFormValidation.validFirstName);
+validField("lastName", contactFormValidation.validLastName);
+validField("address", contactFormValidation.validAddress);
+validField("email", contactFormValidation.validEmail);
+validField("city", contactFormValidation.validCity);
 
-let lastName = document.querySelector("#lastName");
-lastName.addEventListener("change", function (e) {
-  e.preventDefault();
-  e.stopPropagation();
-  if (contactFormValidation.validFirstLastNameCity(lastName)) {
-    lastName.nextElementSibling.innerHTML = "";
-  } else {
-    lastName.nextElementSibling.innerHTML = "Nom invalide";
-  }
-});
-
-let email = document.querySelector("#email");
-email.addEventListener("change", function (e) {
-  e.preventDefault();
-  e.stopPropagation();
-  if (contactFormValidation.validEmail(email)) {
-    email.nextElementSibling.innerHTML = "";
-  } else {
-    email.nextElementSibling.innerHTML = "Email invalide";
-  }
-});
-
-let address = document.querySelector("#address");
-address.addEventListener("change", function (e) {
-  e.preventDefault();
-  e.stopPropagation();
-  if (contactFormValidation.validAddress(address)) {
-    address.nextElementSibling.innerHTML = "";
-  } else {
-    address.nextElementSibling.innerHTML = "Adresse invalide";
-  }
-});
-
-let zip = document.querySelector("#zip");
-zip.addEventListener("change", function (e) {
-  e.preventDefault();
-  e.stopPropagation();
-  if (contactFormValidation.validZip(zip)) {
-    zip.nextElementSibling.innerHTML = "";
-  } else {
-    zip.nextElementSibling.innerHTML = "Code postal invalide";
-  }
-});
-
-let city = document.querySelector("#city");
-city.addEventListener("change", function (e) {
-  e.preventDefault();
-  e.stopPropagation();
-  if (contactFormValidation.validFirstLastNameCity(city)) {
-    city.nextElementSibling.innerHTML = "";
-  } else {
-    city.nextElementSibling.innerHTML = "Ville invalide";
-  }
-});
+//(Première méthode non factorisée :)
+// let zip = document.querySelector("#zip");
+// zip.addEventListener("change", function (e) {
+//   e.preventDefault();
+//   e.stopPropagation();
+//   if (contactFormValidation.validZip(zip.value)) {
+//     zip.nextElementSibling.innerHTML = "";
+//   } else {
+//     zip.nextElementSibling.innerHTML = "Code postal invalide";
+//   }
+// });
 
 //Envoyer mes données au localStorage et à mon API avec postTeddy() !
 document.querySelector(".btn-primary").addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
   if (
-    contactFormValidation.validFirstLastNameCity(firstName) &&
-    contactFormValidation.validFirstLastNameCity(lastName) &&
-    contactFormValidation.validFirstLastNameCity(city) &&
-    contactFormValidation.validZip(zip) &&
-    contactFormValidation.validEmail(email) &&
-    contactFormValidation.validAddress(address)
+    contactFormValidation.firstName &&
+    contactFormValidation.lastName &&
+    contactFormValidation.city &&
+    //contactFormValidation.zip &&
+    contactFormValidation.email &&
+    contactFormValidation.address
   ) {
-    let contact = new Contact();
-    localStorage.setItem("contact", JSON.stringify(contact));
-    //localStorage.setItem("totalPrice", JSON.stringify(totalValue));
-    postTeddy();
+    let products = [];
+    let cartCommand = new Cart();
+    for (let item of cartCommand.items) {
+      products.push(item.id);
+    }
+    postTeddy(contactFormValidation, products);
   } else {
     window.alert("Un des champs du formulaire n'a pas été bien rempli !");
   }
@@ -152,12 +111,14 @@ document.querySelector(".btn-primary").addEventListener("click", (e) => {
 
 //Récupérer mes données formulaire du LocalStorage
 function fillForm(input) {
-  let contactStored = JSON.parse(localStorage.getItem("contact"));
-  document.querySelector(`#${input}`).value = contactStored[input];
+  let contactStored = localStorage.getItem(input);
+  document.getElementById(input).value = contactStored;
+  contactFormValidation[input] = contactStored;
 }
 fillForm("firstName");
 fillForm("lastName");
 fillForm("email");
 fillForm("address");
-fillForm("zip");
 fillForm("city");
+
+console.log(contactFormValidation);
