@@ -8,11 +8,9 @@ class Cart {
     // }
     this.items = JSON.parse(localStorage.getItem("products")) || [];
   }
-
   getItems() {
     return this.items;
   }
-
   addItem(item) {
     //si le produit existe déjà dans le localStorage avec même nom et même couleur alors ajouter + 1
     let hasUpdated = false;
@@ -31,12 +29,10 @@ class Cart {
     }
     this.save();
   }
-
   removeTeddy(index) {
     // fonction to remove an item from cart
     this.items.splice(index, 1);
   }
-
   save() {
     // fonction to save the cart back to localStorage
     localStorage.setItem("products", JSON.stringify(this.items));

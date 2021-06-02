@@ -1,7 +1,7 @@
 "use strict";
 
 const getTeddy = (id) => {
-  fetch(`http://127.0.0.1:3000/api/teddies/${id}`)
+  return fetch(`http://127.0.0.1:3000/api/teddies/${id}`)
     .then((res) => res.json())
     .then((jsonData) => {
       let currentTeddy = new Teddy(
@@ -12,7 +12,10 @@ const getTeddy = (id) => {
         jsonData.description,
         jsonData.colors
       );
-      handleGetTeddy(currentTeddy);
+      return currentTeddy;
+    })
+    .catch((error) => {
+      console.log(error);
     });
 };
 

@@ -120,5 +120,3 @@ fillForm("lastName");
 fillForm("email");
 fillForm("address");
 fillForm("city");
-
-console.log(contactFormValidation);

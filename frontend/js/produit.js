@@ -1,9 +1,10 @@
 "use strict";
 const queryStringId = window.location.search;
-
 const id = new URLSearchParams(queryStringId).get("name");
 
-getTeddy(id);
+getTeddy(id).then((teddy) => {
+  handleGetTeddy(teddy);
+});
 
 //Fonction HandleGetTeddy qui récupère mon teddy:
 let handleGetTeddy = (teddy) => {
