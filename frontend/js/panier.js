@@ -62,9 +62,14 @@ let validField = (key, fct) => {
     if (fct(e.currentTarget.value)) {
       field.nextElementSibling.innerHTML = "";
       localStorage.setItem(key, e.currentTarget.value);
+      console.log(contactFormValidation);
     } else {
-      let fieldTitle = field.previousElementSibling.textContent;
+      const fieldTitle = field.previousElementSibling.textContent;
       field.nextElementSibling.innerHTML = fieldTitle + " invalide";
+      // Je vide alors le champs concerné par la key dans mon localStorage et dans mon objet à vérifier et envoyer. L'objet ne sera donc plus valable lors de l'envoi.
+      localStorage.removeItem(key);
+      let newKey = key.replace(/['"]+/g, "");
+      contactFormValidation[newKey] = "";
     }
   });
 };
@@ -74,7 +79,7 @@ validField("address", contactFormValidation.validAddress);
 validField("email", contactFormValidation.validEmail);
 validField("city", contactFormValidation.validCity);
 
-//(Première méthode non factorisée :)
+//(Première méthode non factorisée :
 // let zip = document.querySelector("#zip");
 // zip.addEventListener("change", function (e) {
 //   e.preventDefault();
@@ -91,12 +96,21 @@ document.querySelector(".btn-primary").addEventListener("click", (e) => {
   e.preventDefault();
   e.stopPropagation();
   if (
+    contactFormValidation.validFirstName &&
+    contactFormValidation.validFirstName != null &&
     contactFormValidation.firstName &&
+    contactFormValidation.validLastName &&
+    contactFormValidation.validLastName != null &&
     contactFormValidation.lastName &&
-    contactFormValidation.city &&
-    //contactFormValidation.zip &&
+    contactFormValidation.validAddress &&
+    contactFormValidation.validAddress != null &&
+    contactFormValidation.address &&
+    contactFormValidation.validEmail &&
+    contactFormValidation.validEmail != null &&
     contactFormValidation.email &&
-    contactFormValidation.address
+    contactFormValidation.validCity &&
+    contactFormValidation.validCity != null &&
+    contactFormValidation.city
   ) {
     let products = [];
     let cartCommand = new Cart();

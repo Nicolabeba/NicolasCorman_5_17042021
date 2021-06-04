@@ -1,12 +1,6 @@
 class Contact {
   constructor() {
     this.firstName = "";
-    // if (validPrenomNomVille(firstName)) {
-    //   return true;
-    // } else {
-    //   alert("Ne pas mettre de carractère spéciaux");
-    //   return false;
-    // }
     this.lastName = "";
     this.email = "";
     this.address = "";
@@ -19,8 +13,9 @@ class Contact {
     if (/^\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+$/.test(value)) {
       this.firstName = value;
       return true;
+    } else {
+      return false;
     }
-    return false;
   };
 
   validLastName = (value) => {
