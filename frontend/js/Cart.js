@@ -20,7 +20,7 @@ class Cart {
         item.selectedColor === this.items[k].selectedColor
       ) {
         this.items[k].quantity += 1;
-        this.items[k].price *= 2;
+        //mauvais calcul (calcul à effectuer dans le panier) : this.items[k].price *= 2;
         hasUpdated = true;
       }
     }

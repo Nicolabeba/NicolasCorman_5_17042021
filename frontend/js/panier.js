@@ -24,7 +24,7 @@ let showCart = (cart) => {
         </tr>
         `;
 
-      totalValue += cart.items[j].price / 100;
+      totalValue += (cart.items[j].quantity * cart.items[j].price) / 100;
     }
     //Afficher Total price
     document.querySelector(".total-price").innerHTML = totalValue + " " + "€";
@@ -66,10 +66,10 @@ let validField = (key, fct) => {
     } else {
       const fieldTitle = field.previousElementSibling.textContent;
       field.nextElementSibling.innerHTML = fieldTitle + " invalide";
-      // Je vide alors le champs concerné par la key dans mon localStorage et dans mon objet à vérifier et envoyer. L'objet ne sera donc plus valable lors de l'envoi.
+      // Je vide alors le champs concerné par la key dans mon localStorage ET dans mon objet à vérifier et envoyer. L'objet ne sera donc plus valable lors de l'envoi.
       localStorage.removeItem(key);
-      let newKey = key.replace(/['"]+/g, "");
-      contactFormValidation[newKey] = "";
+      let objectKey = key.replace(/['"]+/g, "");
+      contactFormValidation[objectKey] = "";
     }
   });
 };
